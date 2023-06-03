@@ -34,15 +34,19 @@ public class FirebaseUtils {
 
   public static final String DATABASE_URL = System.getenv(ENV_FIREBASE_DATABASE_URL);
 
-  public static void init() throws IOException {
-    FileInputStream serviceAccount = new FileInputStream(GOOGLE_APPLICATION_CREDENTIALS);
-    FirebaseOptions options = FirebaseOptions.builder()
-        .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-        .setDatabaseUrl(DATABASE_URL)
-        .build();
+  public static void init() {
+    try {
+      FileInputStream serviceAccount = new FileInputStream(GOOGLE_APPLICATION_CREDENTIALS);
+      FirebaseOptions options = FirebaseOptions.builder()
+              .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+              .setDatabaseUrl(DATABASE_URL)
+              .build();
 
-    FirebaseApp.initializeApp(options);
-    log.info("Firebase initialized correctly");
+      FirebaseApp.initializeApp(options);
+      log.info("Firebase initialized correctly");
+    } catch (IOException e) {
+      log.error("Error while trying to initialize firebase", e);
+    }
   }
 
   public static String getBearerToken(HttpServletRequest request) {
