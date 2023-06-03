@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import lombok.extern.slf4j.Slf4j;
@@ -63,7 +64,7 @@ public class FirebaseAuthFilter extends OncePerRequestFilter {
     FirebaseUser firebaseUser = FirebaseMapper.INSTANCE.toFirebaseUser(decodedToken);
     if (firebaseUser != null) {
       Set<GrantedAuthority> roles = new HashSet<>();
-      roles.add(new SimpleGrantedAuthority(String.format("ROLE_%s", firebaseUser.getRole())));
+      roles.add(new SimpleGrantedAuthority(String.format("ROLE_%s", firebaseUser.getRole().toUpperCase(Locale.ROOT))));
       UsernamePasswordAuthenticationToken authReq =
           new UsernamePasswordAuthenticationToken(firebaseUser, null, roles);
       authReq.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
