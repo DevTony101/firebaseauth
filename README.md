@@ -12,6 +12,7 @@ in Spring's own security context.
   * [Setting Firebase configuration](#setting-firebase-configuration)
   * [Testing](#testing)
   * [About roles](#about-roles)
+  * [Example](#example)
 * [About](#about)
   * [Why should you use this library?](#why-should-you-use-this-library)
   * [FAQ](#faq)
