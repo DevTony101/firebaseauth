@@ -13,10 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -61,10 +58,15 @@ public class FirebaseAuthFilter extends OncePerRequestFilter {
       e.printStackTrace();
     }
 
-    FirebaseUser firebaseUser = FirebaseMapper.INSTANCE.toFirebaseUser(decodedToken);
-    if (firebaseUser != null) {
+    if (Optional.ofNullable(decodedToken).isPresent()) {
+      FirebaseUser firebaseUser = FirebaseMapper.INSTANCE.toFirebaseUser(decodedToken);
+      firebaseUser.setRole("USER");
+      Map<String, Object> claims = decodedToken.getClaims();
+      if (!claims.isEmpty() && claims.containsKey("role")) {
+        firebaseUser.setRole(((String) claims.get("role")).toUpperCase(Locale.ROOT));
+      }
       Set<GrantedAuthority> roles = new HashSet<>();
-      roles.add(new SimpleGrantedAuthority(String.format("ROLE_%s", firebaseUser.getRole().toUpperCase(Locale.ROOT))));
+      roles.add(new SimpleGrantedAuthority(String.format("ROLE_%s", firebaseUser.getRole())));
       UsernamePasswordAuthenticationToken authReq =
           new UsernamePasswordAuthenticationToken(firebaseUser, null, roles);
       authReq.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
