@@ -95,7 +95,7 @@ for example, if the logged-in user has a custom claim that says its role is `cas
 If the logged-in user has no custom claim called `role` then it will be assigned the role of `ROLE_USER`.
 
 ### Example
-If ypu want to see all these steps put together in a real Spring Boot project or want to see how  to protect your endpoints individually based on the role of the current logged-in user you can go to this repo.
+If ypu want to see all these steps put together in a real Spring Boot project or want to see how  to protect your endpoints individually based on the role of the current logged-in user you can go to [this repo](https://github.com/DevTony101/spring-firebase-auth-example).
 
 ## About
 ### Why should you use this library?
