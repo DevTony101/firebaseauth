@@ -99,7 +99,7 @@ If ypu want to see all these steps put together in a real Spring Boot project or
 
 ## About
 ### Why should you use this library?
-You won't have to go through the burden of setting up your Spring Boot security from scratch, nor you will have to lookup how to manually create a custom filter to decode your Firebase token.
+You won't have to go through the burden of setting up your Spring Boot security from scratch let alone create a custom filter to decode your Firebase token.
 
 With the help of this library and the steps provided here you could have a working, secured API in a matter of minutes, without ever worrying about the internals of the Firebase admin sdk.
 ### FAQ
