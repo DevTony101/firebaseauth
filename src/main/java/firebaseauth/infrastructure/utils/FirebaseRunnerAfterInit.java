@@ -9,8 +9,6 @@ public class FirebaseRunnerAfterInit {
 
     @Bean
     public CommandLineRunner runner() {
-        return args -> {
-            FirebaseUtils.init();
-        };
+        return args -> FirebaseUtils.init();
     }
 }
